@@ -30,15 +30,15 @@ class Cat(Animal):
 class Dog(Animal):
     def __init__(self, name, age, commands):
         super().__init__(name, age)
-        self.__command = commands
+        self.__commands = commands
 
     @property
     def commands(self):
-        return self.__command
+        return self.__commands
 
     @commands.setter
     def commands(self, value):
-        self.__command == value
+        self.__commands = value
 
 class FightingDog(Dog):
     def __init__(self, name, age, commands, wins):
@@ -53,6 +53,7 @@ class FightingDog(Dog):
     def wins(self, value):
         self.__wins = value
 
+
 # some_animal = Animal('Isa', 3)
 # some_animal.set_age(5)
 # some_animal.set_name('Adilet')
@@ -63,5 +64,11 @@ cat = Cat('Tom', 5)
 print(cat.info())
 
 dog = Dog('Adilet', 8, 'sit')
+print(dog.commands)
 dog.commands = 'Sit, run'
 print(dog.commands)
+
+fightingDog = FightingDog('Nurs', 16, 'hit, run, bite', 15)
+print(fightingDog.wins)
+fightingDog.wins = 20
+print(fightingDog.wins)
