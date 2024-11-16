@@ -1,5 +1,6 @@
 .idea/
 .venv/
-main.py
 reqs.txt
 .utilities/
+./_pycache_
+./utilites
