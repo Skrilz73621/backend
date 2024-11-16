@@ -89,6 +89,46 @@ class Hero(GameEntity):
         pass
 
 
+class Magic(Hero):
+    def __init__(self, name, health, damage):
+        super().__init__(name, health, damage, 'BOOST')
+
+    def apply_super_power(self, boss, heroes):
+        for hero in heroes:
+            hero.damage += 5
+        print(f'Magic {self.name} boosted damage to heroes')
+
+
+class Witcher(Hero):
+    def __init__(self, name, health, damage):
+        super().__init__(name, health, 0, 'REVIVE')
+
+    def apply_super_power(self, boss, heroes):
+        for hero in heroes:
+            if hero.health == 0:
+                chance = randint(1, 5)
+                if chance >= 2:
+                    hero.health += 150
+                    self.health = 0
+                    print('Witcher sacrificed himself for', hero.name)
+                    break
+
+
+class Hacker(Hero):
+    def __init__(self, name, health, damage):
+        super().__init__(name, health, damage, 'HACK')
+        self.__stolen_hp = 10
+
+    @property
+    def lifesteal(self):
+        return self.__stolen_hp
+
+    def apply_super_power(self, boss, heroes):
+        boss.health -= self.__stolen_hp
+        choice(heroes).health += self.__stolen_hp
+        print(f'Hacker {self.name} steals {self.__stolen_hp} health from boss.')
+
+
 class Thor(Hero):
     def __init__(self, name, health, damage):
         super().__init__(name, health, damage, 'STUN')
@@ -199,14 +239,14 @@ def is_game_over(boss, heroes):
 def start_game():
     thor = Thor(name='Grom', health=100, damage=10)
     spitfire = Spitfire(name='Cthulhu', health=200, damage=10)
-    hacker = Hero(name='Noob', health=100, damage=5, ability='HACK')
+    hacker = Hacker(name='Noob', health=100, damage=5)
     boss = Boss(name='Dragon', health=1000, damage=50)
-    witcher = Hero(name='Billy', health=230, damage=0, ability='REVIVE')
-    warrior_1 = Warrior(name='Mario', health=210, damage=10)
-    warrior_2 = Warrior(name='Ben', health=220, damage=15)
-    magic = Hero(name='Merlin', health=290, damage=10, ability='BOOST')
-    berserk = Berserk(name='Guts', health=220, damage=5)
-    doc = Medic(name='Aibolit', health=220, damage=5, heal_points=15)
+    witcher = Witcher(name='Billy', health=230, damage=0)
+    warrior_1 = Warrior(name='Mario', health=20, damage=10)
+    warrior_2 = Warrior(name='Ben', health=20, damage=15)
+    magic = Magic(name='Merlin', health=20, damage=10)
+    berserk = Berserk(name='Guts', health=20, damage=5)
+    doc = Medic(name='Aibolit', health=20, damage=5, heal_points=15)
     assistant = Medic(name='Kristin', health=130, damage=5, heal_points=5)
     heroes_list = [warrior_1, doc, warrior_2, magic, berserk, assistant, witcher, hacker, spitfire, thor]
 
