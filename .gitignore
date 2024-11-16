@@ -2,5 +2,5 @@
 .venv/
 reqs.txt
 .utilities/
-.__pycache__/
-.utilites/
+__pycache__/
+utilites/
